@@ -8,7 +8,6 @@ import org.apache.shardingsphere.api.config.sharding.KeyGeneratorConfiguration;
 import org.apache.shardingsphere.api.config.sharding.ShardingRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.TableRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.strategy.InlineShardingStrategyConfiguration;
-import org.apache.shardingsphere.api.config.sharding.strategy.StandardShardingStrategyConfiguration;
 import org.apache.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
 
 import javax.sql.DataSource;
@@ -24,9 +23,6 @@ import java.util.Properties;
  */
 public class JavaTemplate {
 
-    /**
-     * run jdbc
-     */
     public static void main(String[] args) throws SQLException {
         JavaTemplate javaTemplate = new JavaTemplate();
         DataSource dataSource = javaTemplate.dataSource();
