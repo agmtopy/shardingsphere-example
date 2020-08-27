@@ -1,0 +1,40 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: utf-8
+
+spring:
+  application:
+    name: shardingsphere-example
+  shardingsphere:
+    datasource:
+      names: ds0,ds1
+      ds0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbcUrl: jdbc:mysql://127.0.0.1:3306/ds0?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT
+        username: root
+        password: 111111
+      ds1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbcUrl: jdbc:mysql://127.0.0.1:3306/ds1?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT
+        username: root
+        password: 111111
+      sharding:
+        default-database-strategy: # 分库规则
+          inline:
+            sharding-column: vender_id
+            algorithm-expression: ds${vender_id % 2}
+        tables:
+          t_user:  #t_user表
+            key-generator-column-name: id  #主键
+            actual-data-nodes: ds${0..1}.t_user${0..1}    #真实数据节点
+            databaseStrategy: # 分库策略
+              inline:
+                sharding-column: vender_id # 分库键
+                algorithm-expression: ds${vender_id % 2}
+            tableStrategy: #分表策略
+              inline: #行表达式
+                shardingColumn: vender_id
+                algorithmExpression: t_user${vender_id % 2}

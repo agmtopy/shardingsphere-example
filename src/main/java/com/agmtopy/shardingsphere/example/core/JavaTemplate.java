@@ -1,4 +1,4 @@
-package com.agmtopy.shardingsphere.example.javacore;
+package com.agmtopy.shardingsphere.example.core;
 
 import com.agmtopy.shardingsphere.example.entity.User;
 import com.google.common.collect.Maps;
