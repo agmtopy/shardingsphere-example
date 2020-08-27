@@ -1,6 +1,7 @@
 package com.agmtopy.shardingsphere.example.core;
 
 import com.agmtopy.shardingsphere.example.entity.User;
+import com.agmtopy.shardingsphere.example.repository.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +21,19 @@ public class SpringBootTemplate {
     @Resource
     private DataSource dataSource;
 
+    @Resource
+    private UserRepository userRepository;
+
     @PostConstruct
     public void initMethod() throws SQLException {
+        method1();
+        method2();
+    }
+
+    /**
+     * connection
+     */
+    private void method1() throws SQLException {
         Connection connection = dataSource.getConnection();
         String sql = "SELECT * FROM t_user WHERE id = 74";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -35,5 +47,10 @@ public class SpringBootTemplate {
                     .build();
             System.out.println(user);
         }
+    }
+
+    private void method2(){
+        User user = userRepository.getOne(75);
+        System.out.println("userRepository>>>" + user);
     }
 }
